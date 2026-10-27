@@ -63,7 +63,6 @@ mvn test
 Start the API:
 
 ```bash
-cd backend
 mvn spring-boot:run
 ```
 Then open http://127.0.0.1:8000/docs to see the interactive documentation (Swagger). Data is kept in memory, so it resets when the service restarts. Stop the API with Control and C.
