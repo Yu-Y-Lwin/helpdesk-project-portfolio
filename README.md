@@ -17,8 +17,8 @@ A small practice project that shows a business analysis workflow from a business
 
 | Technical deliverable | Where |
 |---|---|
-| A small working REST API | `src/main/java/com/campusdesk/helpdesk/` |
-| Automated API tests (JUnit 5 and MockMvc), each mapped to a user story | `src/test/java/com/campusdesk/helpdesk/TicketApiTest.java` |
+| A small working REST API | `backend/src/main/java/com/campusdesk/helpdesk/` |
+| Automated API tests (JUnit 5 and MockMvc), each mapped to a user story | `backend/src/test/java/com/campusdesk/helpdesk/TicketApiTest.java` |
 | Postman collection with tests | `postman/` |
 | Vue 3 web page (create, filter, assign, change status, summary) | `frontend/` |
 | Frontend tests (Vitest and Vue Test Utils) | `frontend/src/__tests__/` |
@@ -27,47 +27,21 @@ A small practice project that shows a business analysis workflow from a business
 ```
 helpdesk-ba-portfolio-java/
 ├── README.md
-├── pom.xml
 ├── .gitignore
-├── src/
-│   ├── main/
-│   │   ├── java/com/campusdesk/helpdesk/
-│   │   │   ├── HelpdeskApplication.java
-│   │   │   ├── TicketController.java
-│   │   │   ├── TicketService.java
-│   │   │   ├── Ticket.java
-│   │   │   ├── Priority.java
-│   │   │   ├── Status.java
-│   │   │   ├── CreateTicketRequest.java
-│   │   │   ├── StatusUpdateRequest.java
-│   │   │   ├── AssigneeUpdateRequest.java
-│   │   │   ├── ValidationRules.java
-│   │   │   ├── ApiExceptionHandler.java
-│   │   │   ├── TicketNotFoundException.java
-│   │   │   ├── InvalidTransitionException.java
-│   │   │   └── InvalidInputException.java
-│   │   └── resources/application.properties
-│   └── test/java/com/campusdesk/helpdesk/TicketApiTest.java
-├── postman/CampusDesk.postman_collection.json
-├── frontend/
-│   ├── package.json
-│   ├── vite.config.js
-│   ├── index.html
+├── docs/                      (six business analysis documents)
+├── postman/
+│   └── CampusDesk.postman_collection.json
+├── backend/
+│   ├── pom.xml
 │   └── src/
-│       ├── main.js
-│       ├── App.vue
-│       ├── api.js
-│       ├── rules.js
-│       ├── style.css
-│       ├── components/
-│       │   ├── SummaryCards.vue
-│       │   ├── TicketForm.vue
-│       │   ├── TicketList.vue
-│       │   └── TicketDetail.vue
-│       └── __tests__/
-│           ├── rules.test.js
-│           └── TicketForm.test.js
-└── docs/ (six business analysis documents)
+│       ├── main/java/com/campusdesk/helpdesk/
+│       ├── main/resources/application.properties
+│       └── test/java/com/campusdesk/helpdesk/TicketApiTest.java
+└── frontend/
+    ├── package.json
+    ├── vite.config.js
+    ├── index.html
+    └── src/ (components, API wrapper, rules, tests)
 ```
 
 ## Run it
@@ -77,6 +51,13 @@ You need **Java 17 or newer** and **Maven**. Check them:
 ```bash
 java -version
 mvn -version
+```
+
+Run backend:
+
+```bash
+cd backend
+mvn test
 ```
 
 Run the automated tests:
