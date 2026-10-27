@@ -1,0 +1,275 @@
+{
+  "info": {
+    "_postman_id": "05bbc0f3-5a6d-436a-89ca-d7d783c1ae46",
+    "name": "CampusDesk Helpdesk API tests",
+    "description": "Practice API tests. Start the API first, then run this collection.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "US-01 Create ticket",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "e574e2b5-a4b7-4928-882f-b5cf160db742",
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 201', function () { pm.response.to.have.status(201); });",
+              "const ticket = pm.response.json();",
+              "pm.collectionVariables.set('ticketId', ticket.id);",
+              "pm.test('Status is open and SLA is 4 hours', function () {",
+              "  pm.expect(ticket.status).to.eql('open');",
+              "  pm.expect(ticket.sla_hours).to.eql(4);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/tickets",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "tickets"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Laptop will not start\",\n  \"description\": \"The laptop shows a black screen after the logo.\",\n  \"priority\": \"high\",\n  \"requester_email\": \"employee@example.com\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "US-02 Create ticket without title (422)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "12487dd1-17ca-41d5-92ad-e35ec541836f",
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 422', function () { pm.response.to.have.status(422); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/tickets",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "tickets"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"description\": \"The laptop shows a black screen after the logo.\",\n  \"priority\": \"high\",\n  \"requester_email\": \"employee@example.com\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "US-05 Get ticket",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "91be820d-963c-43ca-b9ba-b1ab882b9414",
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+              "pm.test('Returns the same ticket', function () {",
+              "  pm.expect(String(pm.response.json().id)).to.eql(String(pm.collectionVariables.get('ticketId')));",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/tickets/{{ticketId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "tickets",
+            "{{ticketId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "US-06 Assign ticket",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "3e75bb37-78f1-4ff0-b968-4b624b940c82",
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+              "pm.test('Assignee is set', function () { pm.expect(pm.response.json().assignee).to.eql('agent@example.com'); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/tickets/{{ticketId}}/assignee",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "tickets",
+            "{{ticketId}}",
+            "assignee"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"assignee\": \"agent@example.com\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "US-07 Close an open ticket (409)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "748f3c03-20b7-4ee4-a977-a57fcab9754e",
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 409', function () { pm.response.to.have.status(409); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/tickets/{{ticketId}}/status",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "tickets",
+            "{{ticketId}}",
+            "status"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"closed\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "US-08 Summary",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "27508d33-1208-4128-8404-3b834a32a393",
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+              "pm.test('Has totals', function () {",
+              "  pm.expect(pm.response.json()).to.have.keys('total', 'by_status', 'by_priority');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/reports/summary",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "reports",
+            "summary"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:8000",
+      "type": "string"
+    },
+    {
+      "key": "ticketId",
+      "value": "1",
+      "type": "string"
+    }
+  ]
+}

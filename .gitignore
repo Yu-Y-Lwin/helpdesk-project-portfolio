@@ -1,0 +1,12 @@
+target/
+.DS_Store
+.idea/
+*.iml
+.vscode/
+cat >> .gitignore <<'EOF'
+node_modules/
+frontend/dist/
+.venv/
+__pycache__/
+run.log
+EOF
