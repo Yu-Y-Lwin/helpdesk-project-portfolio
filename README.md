@@ -25,7 +25,7 @@ A small practice project that shows a business analysis workflow from a business
 
 ## Project structure
 ```
-helpdesk-ba-portfolio-java/
+helpdesk-project-portfolio/
 ├── README.md
 ├── .gitignore
 ├── docs/                      (six business analysis documents)
