@@ -4,6 +4,10 @@ A small practice project that shows a business analysis workflow from a business
 
 **Tech:** Java 17, Spring Boot 3.3, Maven, JUnit 5 and MockMvc (API tests), Postman, and a **Vue 3** frontend (Vite, Vitest).
 
+## Screenshot
+
+![CampusDesk helpdesk web page](screenshots/dashboard.png)
+
 ## What this project shows
 
 | Business analysis deliverable | File |
