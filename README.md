@@ -32,6 +32,8 @@ A small practice project that shows a business analysis workflow from a business
 helpdesk-project-portfolio/
 ├── README.md
 ├── .gitignore
+├── screenshots/
+│   └── dashboard.png
 ├── docs/                      (six business analysis documents)
 ├── postman/
 │   └── CampusDesk.postman_collection.json
