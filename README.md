@@ -31,23 +31,35 @@ A small practice project that shows a business analysis workflow from a business
 ```
 helpdesk-project-portfolio/
 ├── README.md
-├── .gitignore
-├── screenshots/
-│   └── dashboard.png
-├── docs/                      (six business analysis documents)
-├── postman/
-│   └── CampusDesk.postman_collection.json
-├── backend/
+├── backend
 │   ├── pom.xml
-│   └── src/
-│       ├── main/java/com/campusdesk/helpdesk/
-│       ├── main/resources/application.properties
-│       └── test/java/com/campusdesk/helpdesk/TicketApiTest.java
-└── frontend/
-    ├── package.json
-    ├── vite.config.js
-    ├── index.html
-    └── src/ (components, API wrapper, rules, tests)
+│   └── src
+│       ├── main
+│       └── test
+├── docs
+│   ├── 01-business-requirements.md
+│   ├── 02-user-stories.md
+│   ├── 03-process-flows.md
+│   ├── 04-requirements-traceability-matrix.md
+│   ├── 05-api-specification.md
+│   └── 06-uat-test-cases.md
+├── frontend
+│   ├── index.html
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── src
+│   │   ├── App.vue
+│   │   ├── __tests__
+│   │   ├── api.js
+│   │   ├── components
+│   │   ├── main.js
+│   │   ├── rules.js
+│   │   └── style.css
+│   └── vite.config.js
+├── postman
+│   └── CampusDesk.postman_collection.json
+└── screenshots
+    └── dashboard.png
 ```
 
 ## Run it
